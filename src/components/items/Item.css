@@ -1,0 +1,26 @@
+.found__body-Items-itemList{
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    width: 300px;
+    background-color: #D9D9D9;
+}
+
+.found__body-Items-itemList_img{
+    flex: 0.5;
+    height: 70%;
+}
+
+.found__body-Items-itemList_img img{
+    height: 100%;
+    width: 100%;
+}
+
+.found__body-Items-itemList_desc{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
