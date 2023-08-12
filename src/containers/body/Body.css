@@ -75,5 +75,11 @@
 }
 
 .found__body-lostItems-itemList{
-    
+    display: flex;
+    flex-direction: row;
+}
+
+.found__body-foundItems-itemList{
+    display: flex;
+    flex-direction: row;
 }
