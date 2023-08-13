@@ -109,3 +109,7 @@
 .retype_pass {
     padding-left: 3px;
 }
+
+.error {
+    color: red;
+}

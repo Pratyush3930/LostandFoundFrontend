@@ -4,12 +4,13 @@ import img1 from '../../images/website_images/searching1.jpg';
 import img2 from '../../images/website_images/searching2.jpg';
 import { Item } from '../../components';
 import { axiosPrivate } from '../../utils/axios';
-import { useEffect , useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 const Body = (props) => {
     const [data, setData] = useState([]);
     const [slicedData, setSlicedData] = useState([]);
+    // The above useEffects are for item data
 
     const getData = async () => {
         const res = await axiosPrivate.get("/api/items")
@@ -25,11 +26,13 @@ const Body = (props) => {
         // Slice the data when it is fetched or changes
         const startIndex = 0; // Index to start slicing from
         const endIndex = 4;   // Index to end slicing (exclusive)
-    
+
         if (data.length > 0) {
-          setSlicedData(data.slice(startIndex, endIndex));
+            setSlicedData(data.slice(startIndex, endIndex));
         }
-      }, [data]);
+    }, [data]);
+
+
 
     return (
 
@@ -62,7 +65,7 @@ const Body = (props) => {
                     <h1>Found Items</h1>
                 </div>
                 <div className='found__body-foundItems-itemList'>
-                {slicedData.map((item) => (
+                    {slicedData.map((item) => (
                         <Item
                             key={item.id}
                             name={item.item_name}

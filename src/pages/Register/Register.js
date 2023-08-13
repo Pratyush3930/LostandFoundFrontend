@@ -3,8 +3,10 @@ import { Navbar } from '../../components'
 import './Register.css'
 import lostandfound from '../../images/website_images/lostandfound.png'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-const Register = () => {
+const Register = (props) => {
+const history = useNavigate();
   return (
     <div className='found__login'>
       <Navbar />
@@ -15,7 +17,7 @@ const Register = () => {
           </div>
           <div className='found__login-container-info'>
             <h1>Register</h1>
-            <form action="/">
+            <form action="/submit" method="POST" onSubmit={(e) => props.handleSubmit(e , history)}>
               <label htmlFor="username">Username</label>
               <input type="text" id="username" name='username' className='form-element' placeholder='Enter username' />
               <label htmlFor="email">Email</label>
@@ -26,12 +28,11 @@ const Register = () => {
                   <input type="password" id="password" name='password' className='form-element' placeholder='Enter password' />
                 </div>
                 <div className='retype_pass'>
-                  <input type="password" id="password" name='password' className='form-element' placeholder='Enter password' />
+                  <input type="password" id="retype_password" name='retype_password' className='form-element' placeholder='Enter password' />
                 </div>
+                {!(props.passwordMatch) && <p className='error'>The passwords do not match!</p>}
               </div>
-              <Link to="/">
                 <button type='Submit' className='login_btn'>Register</button>
-              </Link>
             </form>
             <p>Already have an account? <Link to="/login"><span>Login</span></Link></p>
           </div>
