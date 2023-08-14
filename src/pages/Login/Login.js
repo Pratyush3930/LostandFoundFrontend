@@ -24,7 +24,7 @@ const Login = () => {
                 <button type='Submit' className='login_btn'>Log in</button>
               </Link>
             </form>
-            <p>Don’t have an account yet? <Link to="/register"><span>Register here</span></Link></p>
+            <p className='no-acc'>Don’t have an account yet? <Link to="/register"><span>Register here</span></Link></p>
           </div>
         </div>
       </div>

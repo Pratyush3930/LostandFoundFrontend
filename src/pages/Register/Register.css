@@ -74,6 +74,18 @@
     outline: none;
 }
 
+.form-err {
+    height: 3rem;
+    width: 100%;
+    border-radius: 10px;
+    border: 0.5px solid rgb(175, 27, 27);
+    outline: none;
+}
+
+.form-margin{
+    margin-bottom: 0.6rem;
+}
+
 .login_btn{
     width: 100px;
     height: 50px;
@@ -88,7 +100,7 @@
     border: none;
 }
 
-.found__login-container-info p {
+.found__login-container-info p:nth-child(2) {
     margin-top: 1rem;
 }
 
@@ -100,6 +112,7 @@
 .confirm_password {
     display: flex;
     flex-direction: row;
+    height: fit-content;
 }
 
 .enter_pass {
@@ -112,4 +125,5 @@
 
 .error {
     color: red;
+    margin-bottom: 1rem;
 }

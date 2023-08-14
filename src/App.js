@@ -9,12 +9,14 @@ import { axiosPrivate } from './utils/axios';
 function App() {
   // const [newUser, setNewUser] = useState();
   const [passwordMatch , setPasswordMatch] = useState(true);
+  const [validPass , setValidPass] = useState(true);
   
-  const registerUser = async (userData , history) => {
+  const registerUser = async (userData , navigate) => {
     try {
       const res = await axiosPrivate.post('/api/users/register', userData);
       if (res.status === 201) {
-        history.push('/login');
+        console.log(res.data);
+        navigate('/login');
       }
       else {
         console.log('Registration error:', res.data);
@@ -27,7 +29,7 @@ function App() {
  
 
 
-  const handleSubmit = (e , history ) => {
+  const handleSubmit = (e , navigate ) => {
     e.preventDefault();
     const username = e.target.username.value; 
     const email = e.target.email.value;
@@ -40,7 +42,13 @@ function App() {
 
     if(password === retype_password){
       setPasswordMatch(true);
-      registerUser(userData , history);
+      if(password.length > 8){
+        registerUser(userData , navigate);
+      }
+      else {
+        setValidPass(false);
+        console.log("The password is too short");
+      }
     }
     else{
       setPasswordMatch(false);
@@ -58,6 +66,7 @@ function App() {
           <Route path="/register" element={<Register 
             handleSubmit = {handleSubmit}
             passwordMatch = {passwordMatch}
+            validPass = {validPass}
             />} />
         </Routes>
       </Router>

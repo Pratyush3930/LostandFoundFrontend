@@ -88,11 +88,7 @@
     border: none;
 }
 
-.found__login-container-info p {
-    margin-top: 2rem;
-}
-
-.found__login-container-info p span{
+.found__login-container-info .no-acc span{
     font-weight: bold;
     cursor: pointer;
 }
