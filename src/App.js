@@ -10,47 +10,77 @@ function App() {
   // const [newUser, setNewUser] = useState();
   const [passwordMatch , setPasswordMatch] = useState(true);
   const [validPass , setValidPass] = useState(true);
+  const [userExists , setUserExists] = useState(false);
+  const [loginSuccess , setLoginSuccess] = useState(true);
   
   const registerUser = async (userData , navigate) => {
     try {
       const res = await axiosPrivate.post('/api/users/register', userData);
       if (res.status === 201) {
         console.log(res.data);
-        navigate('/login');
+        navigate('/Login');
       }
       else {
         console.log('Registration error:', res.data);
+        setUserExists(true);
+        setTimeout(() =>window.location.reload() , 500);
       }
     } catch (error) {
       console.log('Registration error:', error);
     }
   }
 
- 
+  const loginUser = async (userData , navigate) => {
+    try {
+      const res = await axiosPrivate.get('/api/users/login', userData);
+      if(res.status === 200) {
+        console.log("login Successful!");
+        setLoginSuccess(true);
+        navigate('/Home');
+      }
+      else {
+        console.log('Login Error:' , res.data);
+        setTimeout(() =>window.location.reload() , 500);
+        setLoginSuccess(false);
+      }
+    } catch (error) {
+      console.log('Login error error:', error);
+    }
+  }
+
+ const handleLogin = (e, navigate) => {
+  e.preventDefault();
+  const username = e.target.username.value;
+  const password = e.target.password.value;
+  const userData = { username,  password };
+  loginUser(userData , navigate);
+
+ }
 
 
-  const handleSubmit = (e , navigate ) => {
+  function handleSubmit(e, navigate) {
     e.preventDefault();
-    const username = e.target.username.value; 
+    const username = e.target.username.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
     const retype_password = e.target.retype_password.value;
-    const userData = {username , email , password};
-    console.log(userData)
-    console.log('all is well')
+    const userData = { username, email, password };
+    console.log(userData);
+    console.log('all is well');
 
 
-    if(password === retype_password){
+    if (password === retype_password) {
       setPasswordMatch(true);
-      if(password.length > 8){
-        registerUser(userData , navigate);
+      if (password.length >= 6) {
+        setValidPass(true);
+        registerUser(userData, navigate);
       }
       else {
         setValidPass(false);
         console.log("The password is too short");
       }
     }
-    else{
+    else {
       setPasswordMatch(false);
       console.log('Passwords do not match');
     }
@@ -62,11 +92,15 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" exact element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login 
+            handleLogin = {handleLogin}
+            loginSuccess = {loginSuccess}
+          />} />
           <Route path="/register" element={<Register 
             handleSubmit = {handleSubmit}
             passwordMatch = {passwordMatch}
             validPass = {validPass}
+            userExists = {userExists}
             />} />
         </Routes>
       </Router>

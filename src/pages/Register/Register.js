@@ -33,6 +33,7 @@ const navigate = useNavigate();
                 </div>
                 {!(props.passwordMatch) && <p className='error'>The passwords do not match!</p>}
                 {!(props.validPass) && <p className='error'>The passwords is too short!</p>}
+                {(props.userExists) && <p className='error'>This user already exists.</p>}
                 <button type='Submit' className='login_btn'>Register</button>
             </form>
             <p>Already have an account? <Link to="/login"><span>Login</span></Link></p>
