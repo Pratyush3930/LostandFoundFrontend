@@ -12,6 +12,8 @@ function App() {
   const [validPass , setValidPass] = useState(true);
   const [userExists , setUserExists] = useState(false);
   const [loginSuccess , setLoginSuccess] = useState(true);
+  const [loggedIn , setLoggedIn] = useState(false);
+  const [userData , setUserData] = useState([]);
   
   const registerUser = async (userData , navigate) => {
     try {
@@ -30,13 +32,21 @@ function App() {
     }
   }
 
-  const loginUser = async (userData , navigate) => {
+  const loginUser = async (Data , navigate) => {
     try {
-      const res = await axiosPrivate.get('/api/users/login', userData);
+      const res = await axiosPrivate.post('/api/users/login', Data);
       if(res.status === 200) {
         console.log("login Successful!");
         setLoginSuccess(true);
-        navigate('/Home');
+        axios.get('/api/users/get-user-info', { withCredentials: true })
+        .then(response => {
+          setUserData(response.data);
+          console.log('User Data:', userData);
+        })
+        .catch(error => {
+          console.error('Error fetching user data:', error);
+        });
+        navigate('/');
       }
       else {
         console.log('Login Error:' , res.data);
@@ -44,7 +54,8 @@ function App() {
         setLoginSuccess(false);
       }
     } catch (error) {
-      console.log('Login error error:', error);
+      console.log("good byee")
+      console.log('Login error:', error);
     }
   }
 
@@ -91,7 +102,9 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" exact element={<Home />} />
+          <Route path="/" exact element={<Home 
+            loggedIn = {loggedIn}
+            />} />
           <Route path="/login" element={<Login 
             handleLogin = {handleLogin}
             loginSuccess = {loginSuccess}

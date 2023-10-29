@@ -23,9 +23,9 @@ const navigate = useNavigate();
               <label htmlFor="password">Password</label>
               <input type="password" id="password" name='password' className='form-element' placeholder='Enter password' />
               {!(props.loginSuccess) && <p className='error'>The login was not successful!</p>}
-              <Link to="/">
+              
                 <button type='Submit' className='login_btn'>Log in</button>
-              </Link>
+              
             </form>
             <p className='no-acc'>Don’t have an account yet? <Link to="/register"><span>Register here</span></Link></p>
           </div>
