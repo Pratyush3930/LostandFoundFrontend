@@ -14,7 +14,7 @@ const Body = (props) => {
 
     const getData = async () => {
         const res = await axiosPrivate.get("/api/items")
-        console.log(res.data);
+        // console.log(res.data);
         setData(res.data);
     }
 

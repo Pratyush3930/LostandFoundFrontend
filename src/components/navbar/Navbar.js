@@ -3,7 +3,7 @@ import './Navbar.css';
 import { Link } from 'react-router-dom';
 import logo from '../../images/website_images/findit.png';
 
-const Navbar = ({ loggedIn }) => {
+const Navbar = ({ loggedIn , userData }) => {
   // const logo = 
   return (
     <div className='found__navbar'>
@@ -22,17 +22,27 @@ const Navbar = ({ loggedIn }) => {
         </div>
       </div>
       {!loggedIn &&
-        <div className='found__navbar-sign'>
+        (<div className='found__navbar-sign'>
           <Link to="/login">
             <p>Sign in</p>
           </Link>
           <Link to="/register">
             <button className='btn'>Sign up</button>
           </Link>
-        </div>
-      }
+        </div>)
+      } 
+    
+    {loggedIn &&  (
+    <div className='dropdown'>
+    
+      <p className='found__navbar-userInfo'>{(userData.name).toUpperCase()}</p>
+      <div className='dropdown-content'>
+        <a href="/">LogOut</a>
       
     </div>
+    </div>
+    )}
+   </div>
   )
 }
 
