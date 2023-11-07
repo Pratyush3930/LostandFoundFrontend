@@ -9,7 +9,7 @@ const Register = (props) => {
 const navigate = useNavigate();
   return (
     <div className='found__login'>
-      <Navbar />
+      <Navbar/>
       <div className='found__login-box'>
         <div className='found__login-container'>
           <div className='found__login-container-image'>

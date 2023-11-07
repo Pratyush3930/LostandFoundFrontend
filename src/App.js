@@ -1,9 +1,11 @@
 import './App.css';
 import './index.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Home, Login, Register } from './pages'
-import { useState } from 'react'
+import { Home, Login, Register, Items, AddItem } from './pages'
+import { useState, useEffect } from 'react'
 import { axiosPrivate } from './utils/axios';
+import { createContext } from 'react';
+const AppContext = createContext();
 
 
 function App() {
@@ -14,6 +16,8 @@ function App() {
   const [loginSuccess, setLoginSuccess] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState([]);
+  const [data, setData] = useState([]);
+  // The above useEffects are for item data
 
   const registerUser = async (userData, navigate) => {
     try {
@@ -105,29 +109,69 @@ function App() {
     }
   }
 
+  const handleLogOut = async () => {
+    const res = await axiosPrivate.post('/api/users/logout');
+    console.log(res.data);
+    setLoggedIn(false);
+    setLoginSuccess(false);
+  }
+
+
+
+  const getData = async () => {
+    const res = await axiosPrivate.get("/api/items")
+    console.log(res.data);
+    setData(res.data);
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
+  const [showItemInfo, setShowItemInfo] = useState(false);
+
+  // const handleAddItem = async () => {
+  //   const res = await axiosPrivate.post('api/items/addItem')
+  // }
+
+
   return (
 
     <div className="App">
-      <Router>
-        <Routes>
-          <Route path="/" exact element={<Home
-            loggedIn={loggedIn}
-            userData={userData}
-          />} />
-          <Route path="/login" element={<Login
-            handleLogin={handleLogin}
-            loginSuccess={loginSuccess}
-          />} />
-          <Route path="/register" element={<Register
-            handleSubmit={handleSubmit}
-            passwordMatch={passwordMatch}
-            validPass={validPass}
-            userExists={userExists}
-          />} />
-        </Routes>
-      </Router>
+      <AppContext.Provider
+        value={{
+          loggedIn,
+          userData,
+          handleLogOut,
+          setShowItemInfo
+        }}
+      >
+        <Router>
+          <Routes>
+            <Route path="/" exact element={<Home
+              loggedIn={loggedIn}
+              data={data}
+            />} />
+            <Route path="/login" element={<Login
+              handleLogin={handleLogin}
+              loginSuccess={loginSuccess}
+            />} />
+            <Route path="/register" element={<Register
+              handleSubmit={handleSubmit}
+              passwordMatch={passwordMatch}
+              validPass={validPass}
+              userExists={userExists}
+            />} />
+            <Route path="/items" element={<Items
+              data={data}
+              showItemInfo={showItemInfo}
+              setShowItemInfo={setShowItemInfo}
+            />} />
+            <Route path="/addItem" element={<AddItem />} />
+          </Routes>
+        </Router>
+      </AppContext.Provider>
     </div>
   );
 }
 
-export default App;
+export  {App , AppContext};

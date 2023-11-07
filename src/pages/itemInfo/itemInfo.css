@@ -1,0 +1,16 @@
+.found__itemInfo {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 50px;
+    margin: 2rem 4rem ;
+}
+
+.found__itemInfo p {
+    border: 2px solid blue;
+    min-width: 80vh;
+    margin: 0.5rem;
+}

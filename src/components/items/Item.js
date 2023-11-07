@@ -12,8 +12,6 @@ const Item = (props) => {
         <p>Name: {props.name}</p>
         <p>Locations: {props.location}</p>
       </div>
-        
-        
     </div>
   )
 }

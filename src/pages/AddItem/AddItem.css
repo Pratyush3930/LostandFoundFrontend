@@ -1,0 +1,61 @@
+.found__addItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.found__addItem-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3rem;
+    width: 100%;
+}
+
+.found__addItem-body h1{
+    margin-bottom: 3rem;
+    font-size: 30px;
+}
+
+.found__addItem-body form{
+    display: flex;
+    flex-direction: column;
+}
+
+.found__addItem-body form .partition{
+    display: flex;
+    flex-direction: row;
+    margin-left: 3rem; 
+    margin-bottom: 1.5rem;
+    max-width: 100%;
+}
+
+.found__addItem-body form .partition label{
+    margin-right: 2rem;
+    min-width: 200px;
+}
+
+.found__addItem-body form .partition input{
+    min-width: 300px; 
+}
+
+.form-element {
+    margin-bottom: 1rem;
+    height: 3rem;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 1px 2px 5px #141430;
+    border: none;
+    outline: none;
+}
+
+.form-err {
+    height: 3rem;
+    width: 100%;
+    border-radius: 10px;
+    border: 0.5px solid rgb(175, 27, 27);
+    outline: none;
+}
+
+.form-margin{
+    margin-bottom: 0.6rem;
+}

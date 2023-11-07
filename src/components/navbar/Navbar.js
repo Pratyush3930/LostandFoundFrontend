@@ -2,9 +2,11 @@ import React from 'react'
 import './Navbar.css';
 import { Link } from 'react-router-dom';
 import logo from '../../images/website_images/findit.png';
+import { AppContext } from '../../App';
+import { useContext } from 'react';
 
-const Navbar = ({ loggedIn , userData }) => {
-  // const logo = 
+const Navbar = () => {
+  const { loggedIn, userData, handleLogOut, setShowItemInfo } = useContext(AppContext);
   return (
     <div className='found__navbar'>
       <div className='found__navbar-links'>
@@ -16,9 +18,12 @@ const Navbar = ({ loggedIn , userData }) => {
                 <p><a href="">Lost Items</a></p>
                 <p><a href="">Found Items</a></p> */}
           <div></div>
+          <Link to="/">
           <p>Home</p>
-          <p>Lost Items</p>
-          <p>Found Items</p>
+          </Link>
+          <Link to="/items">
+          <p onClick={() => setShowItemInfo(false)}>Lost Items</p>
+          </Link>
         </div>
       </div>
       {!loggedIn &&
@@ -37,8 +42,7 @@ const Navbar = ({ loggedIn , userData }) => {
     
       <p className='found__navbar-userInfo'>{(userData.name).toUpperCase()}</p>
       <div className='dropdown-content'>
-        <a href="/">LogOut</a>
-      
+        <a href="/" onClick={handleLogOut}>LogOut</a>
     </div>
     </div>
     )}
