@@ -129,10 +129,19 @@ function App() {
   }, [])
   const [showItemInfo, setShowItemInfo] = useState(false);
 
-  // const handleAddItem = async () => {
-  //   const res = await axiosPrivate.post('api/items/addItem')
-  // }
-
+  const handleAddItem = async (e, navigate) => {
+    e.preventDefault();
+    const itemName = e.target.itemName.value;
+    const additionalInfo = e.target.additionalInfo.value;
+    const contact = e.target.contact.value;
+    const ownerName = e.target.ownerName.value;
+    const location = e.target.location.value;
+    const itemData = { itemName, additionalInfo, contact, ownerName, location };
+    const res = await axiosPrivate.post('api/items/addItem', itemData);
+    console.log(res.data);
+    navigate('/items');
+    window.location.reload();
+  }
 
   return (
 
@@ -166,7 +175,9 @@ function App() {
               showItemInfo={showItemInfo}
               setShowItemInfo={setShowItemInfo}
             />} />
-            <Route path="/addItem" element={<AddItem />} />
+            <Route path="/addItem" element={<AddItem
+              handleAddItem={handleAddItem}
+            />} />
           </Routes>
         </Router>
       </AppContext.Provider>
@@ -174,4 +185,4 @@ function App() {
   );
 }
 
-export  {App , AppContext};
+export { App, AppContext };

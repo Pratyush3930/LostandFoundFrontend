@@ -5,9 +5,12 @@ import './Items.css'
 import { Navbar } from '../../components';
 import ItemInfo from '../itemInfo/itemInfo';
 import { Link } from 'react-router-dom';
+import { AppContext } from '../../App';
+import { useContext } from 'react';
 
-const Items = ({ data, showItemInfo, setShowItemInfo, handleAddItem }) => {
+const Items = ({ data, showItemInfo, setShowItemInfo }) => {
 
+    const { loggedIn } = useContext(AppContext);
     const [showItem, setShowItem] = useState([]);
     const itemDetails = (item) => {
         setShowItemInfo(true);
@@ -21,14 +24,17 @@ const Items = ({ data, showItemInfo, setShowItemInfo, handleAddItem }) => {
                 <div className='found__Items-bod'>
                     <div className='found__Items-bod__features'>
                         <h1>Item List</h1>
-                        <Link to='/addItem' >
-                            <button>Add Item</button>
-                        </Link>
+                        {!loggedIn &&
+                            <button onClick={() =>window.alert("Please login first to continue!")}>Add Item</button>
+                        }
+                        {loggedIn &&
+                            <Link to='/addItem' >
+                                <button>Add Item</button>
+                            </Link>}
                     </div>
                     <div className='found__Items-bod__itemList '>
                         {data.map((item) => (
                             <div onClick={() => itemDetails(item)}>
-                                {console.log(item)}
                                 <Item
                                     key={item.id}
                                     name={item.item_name}

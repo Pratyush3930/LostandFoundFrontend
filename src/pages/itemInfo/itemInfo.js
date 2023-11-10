@@ -19,7 +19,7 @@ const ItemInfo = ({data}) => {
         <p>Location: {data.location}</p>
         <p>Person's name: {data.name}</p>
         <p>Contact details: {data.contact}</p>
-        <p>Description: {data.item_name}</p>
+        <p>Description: {data.description}</p>
     </div>
   )
 }
