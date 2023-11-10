@@ -58,20 +58,6 @@ const Body = (props) => {
                     ))}
                 </div>
             </div>
-            <div className="found__body-foundItems section__margin">
-                <div className="found__body-foundItems-header">
-                    <h1>Found Items</h1>
-                </div>
-                <div className='found__body-foundItems-itemList'>
-                    {slicedData.map((item) => (
-                        <Item
-                            key={item.id}
-                            name={item.item_name}
-                            location={item.location}
-                        />
-                    ))}
-                </div>
-            </div>
         </div>
     )
 }
