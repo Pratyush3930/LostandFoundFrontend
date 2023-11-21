@@ -39,7 +39,8 @@
 }
 
 .form-element {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    padding: 2px 5px;
     height: 3rem;
     width: 100%;
     border-radius: 10px;
@@ -57,7 +58,7 @@
 }
 
 .form-margin{
-    margin-bottom: 0.6rem;
+    margin-bottom: 1.5rem;
 }
 
 .addItem-btn{

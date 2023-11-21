@@ -18,17 +18,14 @@ const navigate = useNavigate();
           <div className='found__login-container-info'>
             <h1>Register</h1>
             <form action="/submit" method="POST" onSubmit={(e) => props.handleSubmit(e , navigate)}>
-              <label htmlFor="username">Username</label>
-              <input type="text" id="username" name='username' className='form-element form-margin' placeholder='Enter username' />
-              <label htmlFor="email">Email</label>
-              <input type="email" id='email' name="email" className='form-element form-margin' placeholder='Enter your email' />
-              <label htmlFor="password">Password</label>
+              <input type="text" id="username" name='username' className='form-element form-margin' placeholder='Username' />
+              <input type="email" id='email' name="email" className='form-element form-margin' placeholder='Email' />
               <div className='confirm_password'>
                 <div className='enter_pass'>
                   <input type="password" id="password" name='password' className={!props.passwordMatch ?'form-err' : 'form-element'} placeholder='Enter password' />
                 </div>
                 <div className='retype_pass'>
-                  <input type="password" id="retype_password" name='retype_password' className={!props.passwordMatch ?'form-err' : 'form-element'} placeholder='Enter password' />
+                  <input type="password" id="retype_password" name='retype_password' className={!props.passwordMatch ?'form-err' : 'form-element'} placeholder='Retype password' />
               </div>
                 </div>
                 {!(props.passwordMatch) && <p className='error'>The passwords do not match!</p>}

@@ -2,10 +2,9 @@
 .found__login-box {
     display: flex;
     width: 100%;
-    height: calc(100vh - 100px);
+    height: 100vh;
     flex-direction: column;
     align-items: center;
-    background-color: #fdafaf;
 }
 
 .found__login-container {
@@ -15,7 +14,7 @@
     margin-top: 4rem;
     border-radius: 10px;
     width: 70%;
-    height: 500px;
+    height: 70vh;
     background-color: #6CC091;
 }
 
@@ -47,7 +46,7 @@
 }
 
 .found__login-container-info h1{
-    margin-bottom: 2rem;
+    margin-bottom: 5rem;
     font-size: 40px;
     font-weight: 800;
     line-height: 20px;
@@ -98,6 +97,7 @@
     background-color: #CC5656;
     cursor: pointer;
     border: none;
+    margin-bottom: 1rem;
 }
 
 .found__login-container-info p:nth-child(2) {

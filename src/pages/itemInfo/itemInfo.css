@@ -10,7 +10,6 @@
 }
 
 .found__itemInfo p {
-    border: 2px solid blue;
     min-width: 80vh;
-    margin: 0.5rem;
+    margin: 1.5rem;
 }
