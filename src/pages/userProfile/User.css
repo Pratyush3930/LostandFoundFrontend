@@ -1,0 +1,91 @@
+.user {
+    background-color: rgb(238, 234, 234);
+}
+
+.user h2 {
+    font-size: 30px;
+    font-weight: 400;
+    margin: 2rem;
+    padding:2rem 0;
+    text-align: center;
+}
+
+.userInfo {
+    display: grid;
+    grid-template-columns: .3fr .3fr;
+    margin: 0 1rem  ;
+    gap: 10px;
+    row-gap: 10px;
+    justify-content: center;
+}
+
+
+.userInfo .userInfo_section p {
+    padding: 1rem;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.userInfo_section div{
+    margin: 0.5rem 2rem;
+    /* border-radius: 10px; */
+    box-shadow: 1px 1px;
+    height: 50px;
+    padding: 6px 8px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 400;
+    /* background-color: white; */
+}
+
+.updateInfo {
+    margin: 0.5rem 2rem;
+    border-radius: 10px;
+    box-shadow: 1px 1px;
+    height: 50px;
+    padding: 6px 8px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 400;
+    background-color: white;
+}
+
+.password_change {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+
+.password_btn {
+    width: 200px;
+    background-color: rgb(44, 141, 141);
+    color: white;
+    border-radius: 5%;
+    height: 50px;
+    margin-top: 3rem;
+    grid-column: span 2;
+    justify-self: center;
+    
+}
+
+.userInformation-items  {
+    text-align: center;
+}
+
+.userInformation-items_heading h2{
+    font-size: 30px;
+    font-weight: 500;
+    margin: 3rem 0;
+    letter-spacing: 0.5px;
+    line-height: 20px;
+}
+
+.userInformation-items_iteminfo {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: 1rem 0;
+    margin-left: 3rem;
+}

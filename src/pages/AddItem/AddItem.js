@@ -29,7 +29,7 @@ const AddItem = ({handleAddItem}) => {
           </div>
           <div className='partition'>
             <label htmlFor="contact">Contact info:</label>
-            <input type="number" id="contact" name='contact' className='form-element form-margin' placeholder='Enter contact details' required />
+            <input type="text" id="contact" name='contact' className='form-element form-margin' placeholder='Enter contact details' required />
           </div>
           <div className='partition'>
             <label htmlFor="additionalInfo">Additional information of item:</label>

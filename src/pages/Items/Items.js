@@ -16,6 +16,7 @@ const Items = ({ data, showItemInfo, setShowItemInfo }) => {
         setShowItemInfo(true);
         setShowItem(item);
     }
+    
 
     return (
         <div className='found__Items'>
@@ -33,6 +34,7 @@ const Items = ({ data, showItemInfo, setShowItemInfo }) => {
                             </Link>}
                     </div>
                     <div className='found__Items-bod__itemList '>
+                        {console.log(data)}
                         {data.map((item) => (
                             <div onClick={() => itemDetails(item)}>
                                 <Item

@@ -34,10 +34,13 @@
 }
 
 .found__Items-bod__itemList {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-left: 15px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    row-gap: 30px;
+    margin-left: 1rem;
 }
 
 .found__Items-bod__itemList div{

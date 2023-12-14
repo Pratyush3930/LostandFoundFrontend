@@ -13,3 +13,11 @@
     min-width: 80vh;
     margin: 1.5rem;
 }
+
+.found__itemInfo-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+}
