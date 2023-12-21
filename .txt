@@ -1,0 +1,30 @@
+contact
+  // : 
+  // "9840004033"
+  // date
+  // : 
+  // null
+  // description
+  // : 
+  // "It was an hp pavilion laptop that was foldable."
+  // id
+  // : 
+  // 18
+  // image
+  // : 
+  // "/documents/lostItems/1702627089949apple.jpg"
+  // item_name
+  // : 
+  // "iphone"
+  // location
+  // : 
+  // "koteshwor"
+  // lost
+  // : 
+  // true
+  // name
+  // : 
+  // "Pratyush"
+  // uid
+  // : 
+  // 7

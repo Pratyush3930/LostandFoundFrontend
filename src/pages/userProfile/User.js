@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./User.css";
 import { Navbar } from "../../components";
 import { useContext } from "react";
@@ -20,13 +20,11 @@ const User = ({
   const [open, setOpen] = React.useState(false);
   const [openPass, setOpenPass] = React.useState(false);
   const [showItem, setShowItem] = useState([]);
+  const [itemUploaded, setItemUploaded] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOpenPass = () => setOpenPass(true);
   const handleClosePass = () => setOpenPass(false);
-
-  //   console.log("sdfsdl", data);
-  console.log("user id", userId);
 
   const style = {
     position: "absolute",
@@ -49,29 +47,37 @@ const User = ({
     setShowItem(item);
   };
 
+  useEffect(() => {
+    data?.map((item) => {
+      userId === item.uid ? setItemUploaded(true) : setItemUploaded(false);
+      return 1;
+    });
+  }, [userId, data]);
+
   return (
     <div className="userInformation">
       <Navbar />
       {!showItemInfo && (
-        <>
+        <section className="user_section">
           <div className="user">
-            <h2>User Information</h2>
+            <h1 className="user-header">User Information</h1>
+            <hr className="line" />
             <div className="userInfo">
               <div className="userInfo_section">
-                <p>Username:</p>
-                <div>{userData.name}</div>
+                <h2>Username:</h2>
+                <p>{userData.name}</p>
               </div>
               <div className="userInfo_section">
-                <p>Address:</p>
-                <div>{userData.address}</div>
+                <h2>Address:</h2>
+                <p>{userData.address}</p>
               </div>
               <div className="userInfo_section">
-                <p>Email:</p>
-                <div>{userData.email}</div>
+                <h2>Email:</h2>
+                <p>{userData.email}</p>
               </div>
               <div className="userInfo_section">
-                <p>Phone Number:</p>
-                <div>{userData.number}</div>
+                <h2>Phone Number:</h2>
+                <p>{userData.number}</p>
               </div>
               {/* <div className='userInfo_section'>
                         <p>Date Joined:</p>
@@ -197,29 +203,39 @@ const User = ({
               </div>
             </div>
           </div>
-          <div className="userInformation-items">
-            <div className="userInformation-items_heading">
-              <h2>Your uploaded items</h2>
-            </div>
-            <div className="userInformation-items_iteminfo">
-              {data?.map((item) => {
-                if (userId === item.uid) {
-                  return (
-                    <div onClick={() => itemDetails(item)}>
-                      <Item
-                        key={item.id}
-                        name={item.item_name}
-                        location={item.location}
-                      />
-                    </div>
-                  );
-                } else {
-                  return null;
-                }
-              })}
-            </div>
+          <div className="userUploadedItems">
+            {itemUploaded ? (
+              <div className="userInformation-items">
+                <div className="userInformation-items_heading">
+                  <h1 className="user-header">Your uploaded items</h1>
+                  <hr  className="line"/>
+                </div>
+                <div className="userInformation-items_iteminfo dashboard-grid">
+                  {data?.map((item) => {
+                    if (userId === item.uid) {
+                      return (
+                        <div onClick={() => itemDetails(item)}>
+                          <Item
+                            key={item.id}
+                            name={item.item_name}
+                            location={item.location}
+                            image={`http://localhost:8000/static${item.image}`}
+                          />
+                        </div>
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}
+                </div>
+              </div>
+            ) : (
+              <p className="notUploadedItem">
+                You have not uploaded any lost items!
+              </p>
+            )}
           </div>
-        </>
+        </section>
       )}
       {showItemInfo && <ItemInfo data={showItem} />}
     </div>

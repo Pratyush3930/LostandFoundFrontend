@@ -16,8 +16,11 @@ function App() {
   const [loginSuccess, setLoginSuccess] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState([]);
-  const [userId, setUserId] = useState(0);
+  const [userId, setUserId] = useState();
   const [data, setData] = useState([]);
+  const [status, setStatus] = useState(true);
+  const [notifData, setNotifData] = useState([]);
+  const [itemAccept , setItemAccept] = useState(false);
   // The above useEffects are for item data
 
   useEffect(() => {
@@ -120,7 +123,7 @@ function App() {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [data]);
   const [showItemInfo, setShowItemInfo] = useState(false);
 
   const handleAddItem = async (e, navigate) => {
@@ -130,17 +133,27 @@ function App() {
     const contact = e.target.contact.value;
     const ownerName = e.target.ownerName.value;
     const location = e.target.location.value;
+    // Get the image file input
+    const image = e.target.image.files[0];
+    console.log(image);
+
     const parsedUserData = JSON.parse(localStorage.getItem("userData"));
     const uid = parsedUserData.id;
-    const itemData = {
-      itemName,
-      additionalInfo,
-      contact,
-      ownerName,
-      location,
-      uid,
-    };
-    const res = await axiosPrivate.post("api/items/addItem", itemData);
+
+    // Create a FormData object
+    const formData = new FormData();
+
+    // Append the data to the FormData object
+    formData.append("itemName", itemName);
+    formData.append("additionalInfo", additionalInfo);
+    formData.append("contact", contact);
+    formData.append("ownerName", ownerName);
+    formData.append("location", location);
+    formData.append("uid", uid);
+    formData.append("file", image);
+    const res = await axiosPrivate.post("api/items/addItem", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
     console.log(res.data);
     navigate("/items");
     window.location.reload();
@@ -236,6 +249,100 @@ function App() {
     }
   };
 
+  const handleDelete = async (navigate) => {
+    const uid = userId;
+    try {
+      const res = await axiosPrivate.delete(`api/items/removeItem/${uid}`);
+      if (res.status === 200) {
+        console.log(res.data);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleStatusChange = async (s, id) => {
+    try {
+      if (s === 0 || s === 1) {
+        const res = await axiosPrivate.put(`api/items/updateStatus/${id}`, {
+          status: s,
+        });
+        console.log(res.data);
+        // This is to update status of lost item to found
+        setStatus(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleNotif = async (
+    item_id,
+    userlost_id,
+    userfound_id,
+    question,
+    answer,
+    userlost_name,
+    userlost_contact,
+    userfound_name
+  ) => {
+    const notifData = {
+      item_id,
+      userlost_id,
+      userfound_id,
+      question,
+      answer,
+      userlost_name,
+      userlost_contact,
+      userfound_name,
+    };
+    try {
+      const res = await axiosPrivate.post("api/notif/addNotif", notifData);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getNotif();
+    // eslint-disable-next-line
+  }, [userId]);
+
+  const getNotif = async () => {
+    try {
+      const parsedUserData = JSON.parse(localStorage.getItem("userData"));
+      const id = parsedUserData.id;
+      const res = await axiosPrivate.get(`api/notif/getNotif/${id}`);
+      console.log(res.data);
+      setNotifData(res.data);
+      // const length = Object.keys(res.data).length;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleReject = async (id) => {
+    try {
+      const res = await axiosPrivate.delete(`api/notif/removeNotif/${id}`);
+      handleStatusChange(1, id);
+      // write code to update lost value to true from false
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleAccept = async (id) => {
+    try {
+      const res = await axiosPrivate.put(`api/notif/acceptNotif/${id}`);
+      console.log(res.data);
+      setItemAccept(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="App">
       <AppContext.Provider
@@ -246,7 +353,15 @@ function App() {
           setShowItemInfo,
           showItemInfo,
           data,
-          userId
+          userId,
+          handleDelete,
+          handleStatusChange,
+          status,
+          handleNotif,
+          notifData,
+          handleReject,
+          handleAccept,
+          itemAccept
         }}
       >
         <Router>

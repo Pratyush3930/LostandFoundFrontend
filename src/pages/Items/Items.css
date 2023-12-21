@@ -23,10 +23,10 @@
     border-radius: 4px;
     color: white;
     background-color: #1d91c9;
-    max-width: 100px;
+    max-width: 200px;
     justify-content: center;
     white-space: nowrap;
-    padding: 3px 6px;
+    padding: 10px 12px;
 }
 
 .found__Items-bod__features button:hover{
@@ -47,3 +47,9 @@
     margin-bottom : 5px;
 }
 
+.searchBar{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 2rem;
+}

@@ -9,15 +9,22 @@
     margin: 2rem 4rem ;
 }
 
-.found__itemInfo p {
-    min-width: 80vh;
-    margin: 1.5rem;
-}
-
 .found__itemInfo-btn {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 40px;
+    width: 100%;
+}
+
+.found_itemInfo-section {
+    display: grid;
+    grid-template-columns: 1fr 60%;
+    gap: 40px;
+}
+
+.found_itemInfo-img {
+    margin: 2rem 0;
+    height: 100%;
     width: 100%;
 }

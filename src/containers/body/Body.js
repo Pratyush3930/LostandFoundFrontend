@@ -44,16 +44,17 @@ const Body = (props) => {
                 </div>
                 <div className='found__body-getstarted-img2'><img src={img2} alt="Searching" /></div>
             </div>
-            <div className="found__body-lostItems section__margin">
+            <div className="found__body-lostItems" >
                 <div className="found__body-lostItems-header">
                     <h1>Lost Items</h1>
                 </div>
-                <div className='found__body-lostItems-itemList'>
+                <div className='dashboard-grid'>
                     {slicedData.map((item) => (
                         <Item
                             key={item.id}
                             name={item.item_name}
                             location={item.location}
+                        image={`http://localhost:8000/static${item.image}`}
                         />
                     ))}
                 </div>

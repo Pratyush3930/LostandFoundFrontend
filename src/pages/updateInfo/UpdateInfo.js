@@ -1,23 +1,23 @@
-import React from 'react'
-import { Navbar } from '../../components'
+// import React from 'react'
+// import { Navbar } from '../../components'
 
 
 
-const UpdateInfo = () => {
+// const UpdateInfo = () => {
  
   
-    // return (
+//     // return (
       
-    // );
+//     // );
   
-  // return (
-  //   <div>
-  //       <Navbar/>
-  //       <form action="">
+//   // return (
+//   //   <div>
+//   //       <Navbar/>
+//   //       <form action="">
             
-  //       </form>
-  //   </div>
-  // )
-}
+//   //       </form>
+//   //   </div>
+//   // )
+// }
 
-export default UpdateInfo
+// export default UpdateInfo
