@@ -74,9 +74,11 @@ const ItemInfo = ({ data }) => {
       <h1 className="user-header">Item Information</h1>
       <hr className="line" />
       <div className="found_itemInfo-section">
-        <div className="found_itemInfo-img">
-          <img src={`http://localhost:8000/static${data.image}`} alt="" />
-        </div>
+        {data.image && (
+          <div className="found_itemInfo-img">
+            <img src={`http://localhost:8000/static${data.image}`} alt="" />
+          </div>
+        )}
         <div
           className="userInfo"
           style={{ gridTemplateColumns: "1fr 1fr", textWrap: "wrap" }}
@@ -173,15 +175,30 @@ const ItemInfo = ({ data }) => {
         </Modal>
       </div>
       {/* To check if the user who lost the item has a notification and display the response below */}
-      {userId == data.uid && userId === notifData[0]?.userlost_id && (
-        <div style={{display: "flex", alignItems: "center", color: "grey" ,width: "100%", flexDirection: "column",rowGap: "10px"}}>
+      {userId === data.uid && userId === notifData[0]?.userlost_id && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            color: "grey",
+            width: "100%",
+            flexDirection: "column",
+            rowGap: "10px",
+          }}
+        >
           <h2>
             Responses
-            <hr className="line"/>
+            <hr className="line" />
           </h2>
-          <div style={{display: "flex", alignItems:"flexStart", flexDirection: "column"}}>
-          <p> Username: {notifData[0]?.userfound_name}</p>
-          <p> Answer: {notifData[0]?.answer}</p>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flexStart",
+              flexDirection: "column",
+            }}
+          >
+            <p> Username: {notifData[0]?.userfound_name}</p>
+            <p> Answer: {notifData[0]?.answer}</p>
           </div>
         </div>
       )}

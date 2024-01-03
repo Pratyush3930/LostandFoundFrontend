@@ -1,7 +1,7 @@
 import "./App.css";
 import "./index.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home, Login, Register, Items, AddItem, User } from "./pages";
+import { Home, Login, Register, Items, AddItem, User, FoundItem } from "./pages";
 import { useState, useEffect } from "react";
 import { axiosPrivate } from "./utils/axios";
 import { createContext } from "react";
@@ -20,8 +20,9 @@ function App() {
   const [data, setData] = useState([]);
   const [status, setStatus] = useState(true);
   const [notifData, setNotifData] = useState([]);
-  const [itemAccept , setItemAccept] = useState(false);
-  // The above useEffects are for item data
+  const [itemAccept, setItemAccept] = useState(false);
+  const [userFoundNotif, setUserFoundNotif] = useState([]);
+  // userFoundNotif to check whether the accept status of notif is true or not on the side of user who found the item
 
   useEffect(() => {
     console.log(localStorage.getItem("userData"));
@@ -313,9 +314,26 @@ function App() {
     try {
       const parsedUserData = JSON.parse(localStorage.getItem("userData"));
       const id = parsedUserData.id;
-      const res = await axiosPrivate.get(`api/notif/getNotif/${id}`);
-      console.log(res.data);
-      setNotifData(res.data);
+      const res = await axiosPrivate.get(`api/notif/getNotif/userlost/${id}`);
+      // above is to check for lost item user
+      // below is for found item user
+      const result = await axiosPrivate.get(
+        `api/notif/getNotif/userfound/${id}`
+      );
+      
+      if (id === res.data[0].userlost_id) {
+        console.log(res.data);
+        setNotifData(res.data);
+      }
+      else{
+        setNotifData("No notifications!");
+      }
+      if (id === result.data[0].userfound_id) {
+        setUserFoundNotif(result.data);
+      }
+      else{
+        setUserFoundNotif("No notifications!");
+      }
       // const length = Object.keys(res.data).length;
     } catch (error) {
       console.log(error);
@@ -342,7 +360,20 @@ function App() {
       console.log(error);
     }
   };
+  // 1. create the api request in checkNotif function
+  // euta constantly check grnu pryo userfound_id
+  // if this.user.id == userfound_id check the accept value true or false vanera
+  // lostuser le reject gare that notif will be deleted
+  // accept gare value becomes true so if accepted provide this.user.id with contact information of the user who
+  // lost the item and end the process
+  // that is all thats left
+  // 2. euta found items page banam which will show the items that have been found by you
+  // if the item is accepted change the pending request below the found item to accepted
+  // if the item is rejected change the pending request to rejected
+  // provide a delete option below the item in both cases.
+  // finished
 
+  // 3. provide an option to update the added items still missing!!
   return (
     <div className="App">
       <AppContext.Provider
@@ -361,7 +392,8 @@ function App() {
           notifData,
           handleReject,
           handleAccept,
-          itemAccept
+          itemAccept,
+          userFoundNotif,
         }}
       >
         <Router>
@@ -413,9 +445,9 @@ function App() {
                 />
               }
             />
-            {/* <Route path="/updateInfo" element={<UpdateInfo
+            <Route path="/foundItem" element={<FoundItem
 
-            />} /> */}
+            />} />
           </Routes>
         </Router>
       </AppContext.Provider>

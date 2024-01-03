@@ -27,12 +27,12 @@ const Navbar = () => {
     userData,
     handleLogOut,
     setShowItemInfo,
-    data,
     userId,
     notifData,
     handleAccept,
     handleReject,
     itemAccept,
+    userFoundNotif,
   } = useContext(AppContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorNoti, setAnchorNoti] = React.useState(null);
@@ -76,6 +76,9 @@ const Navbar = () => {
           <Link to="/items">
             <p onClick={() => setShowItemInfo(false)}>Lost Items</p>
           </Link>
+          <Link to="/foundItem">
+            <p>Found Items</p>
+          </Link>
         </div>
       </div>
       {!loggedIn && (
@@ -93,10 +96,12 @@ const Navbar = () => {
         <div>
           <div className="notification">
             <div className="noti">
-              {userId !== notifData[0]?.userlost_id && (
-                <NotificationsIcon onClick={handleClickNoti} />
-              )}
-              {userId === notifData[0]?.userlost_id && (
+              {userId !== notifData[0]?.userlost_id &&
+                userId !== userFoundNotif[0]?.userfound_id && (
+                  <NotificationsIcon onClick={handleClickNoti} />
+                )}
+              {(userId === notifData[0]?.userlost_id ||
+                userId === userFoundNotif[0]?.userfound_id) && (
                 <NotificationImportantIcon onClick={handleClickNoti} />
               )}
               <div>
@@ -116,7 +121,7 @@ const Navbar = () => {
                     <h2 className="noti-header">Notifications</h2>
 
                     <hr className="line" />
-                    {notifData instanceof Object && !itemAccept &&(
+                    {notifData instanceof Object && !itemAccept && (
                       <>
                         <p>
                           A user with username {notifData[0]?.userfound_name}{" "}
@@ -145,19 +150,36 @@ const Navbar = () => {
                             Reject
                           </button>
                         </div>
+                        <hr className="line" />
                       </>
                     )}
-                    {!(notifData instanceof Object) && !itemAccept && (
-                      <>
-                        <p className="error">No new notifications!</p>
-                      </>
-                    )}
-                    {(notifData instanceof Object) && itemAccept && notifData[0].accept (
-                      <p>
-                        Thank you for accepting the lost item. Kindly wait for
-                        the user to contact you.{" "}
-                      </p>
-                    )}
+                    {!(notifData instanceof Object) &&
+                      !itemAccept &&
+                      !(userFoundNotif instanceof Object)(
+                        <>
+                          <p className="error">No notifications!</p>
+                        </>
+                      )}
+                    {notifData instanceof Object &&
+                      itemAccept &&
+                      notifData[0].accept(
+                        <p>
+                          Thank you for accepting the lost item. Kindly wait for
+                          the user to contact you.{" "}
+                        </p>
+                      )}
+                    {userFoundNotif instanceof Object &&
+                      userFoundNotif.map(
+                        (notif) =>
+                          notif.userfound_id === userId &&
+                          notif.accept && (
+                            <p>
+                              Your request to return the item {notif.item_name}{" "}
+                              has been accepted. Kindly contact the owner
+                              through "{notif.userlost_contacts}" to return the item.
+                            </p>
+                          )
+                      )}
                   </div>
                 </Popover>
               </div>
